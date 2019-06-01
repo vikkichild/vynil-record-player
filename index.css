@@ -1,0 +1,50 @@
+body{
+    background-color: silver;
+}
+
+.main_container {
+    margin-left: 50px;
+    margin-top: 40px;
+}
+
+.base_container {
+    margin-left: 50px;
+    margin-top: 40px;
+}
+
+.base {
+    height: 453px;
+    width: 575px;
+}
+
+.vinyl_record_container {
+    margin-left: 55px;
+    margin-top: -437px;
+}
+
+.vinyl_record {
+    height: 400px;
+    width: 400px;
+}
+
+.button {
+    position: relative;
+    height: 50px;
+    margin-left: 470px;
+    margin-top: -100px;
+}
+
+.rotate360cw {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+}
+
+.move {
+    position: absolute;
+    transition: all 10s linear;
+    -webkit-transition: all 10s linear; /** Chrome & Safari **/
+    -moz-transition: all 10s linear; /** Firefox **/
+    -o-transition: all 10s linear; /** Opera **/
+}
