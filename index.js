@@ -10,6 +10,8 @@ var track = new Howl({
         vinylRecord.classList.remove("vinyl_record_animation");
     }
 });
+var timer;
+var initTime;
 
 function classCheck(){
     for( var i=0; i < vinylRecord.classList.length; i++){
@@ -21,13 +23,16 @@ function classCheck(){
 }
 
 function rotation(){
-    if( !classCheck){
+    initTime = new Date().getTime();
+    if( !classCheck()){
         vinylRecord.classList.add("vinyl_record_animation");
         track.play();
+        timer = setInterval(isTimer, 1)
     }
     else {
         vinylRecord.classList.remove("vinyl_record_animation");
         track.pause();
+        clearInterval(timer);
     }
 }
 
@@ -56,13 +61,12 @@ function getMusicGenre(type) {
     return songs[type];
 }
 
-
-// var timer = setInterval(function() {
-//     var initTime = new Date().getTime();
-//     var minutes = Math.floor((initTime  % (1000 * 60 * 60)) / (1000 * 60));
-//     var seconds = Math.floor((initTime  % (1000 * 60)) / 1000);
-//     var milliseconds = Math.floor((initTime  % (1000)));
+function isTimer() {
+    var time = new Date().getTime() - initTime;
+    var minutes = Math.floor((time  % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((time  % (1000 * 60)) / 1000);
+    var milliseconds = Math.floor((time  % (1000)));
     
-//     document.getElementsByClassName("timer")[0].innerHTML = minutes + " : " + seconds + " : " + milliseconds;
-// }, 1)
-// TODO вынести initTime (время по нажатию по кнопке) вне функции и вычитать из текущего времени
+    document.getElementsByClassName("timer")[0].innerHTML = minutes + " : " + seconds + " : " + milliseconds;
+}
+//TODO fix timer xeroing on pause
