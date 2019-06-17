@@ -68,3 +68,10 @@ body{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 20px;
 }
+
+.selector_text {
+  display: block;
+  color: red;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+}
