@@ -69,4 +69,4 @@ function isTimer() {
     
     document.getElementsByClassName("timer")[0].innerHTML = minutes + " : " + seconds + " : " + milliseconds;
 }
-//TODO fix timer xeroing on pause
+//TODO fix timer zeroing on pause

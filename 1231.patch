@@ -1,0 +1,140 @@
+Index: TODO
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- TODO	(date 1560630848000)
++++ TODO	(date 1560630848000)
+@@ -0,0 +1,15 @@
++1.разбить по папкам:
++/img/
++/music/
++/styles
++/js
++index.html
++
++2. удалить из гита zip
++
++3. https://coryrylan.com/blog/javascript-module-pattern-basics
++Сейчас ты все переменные создаёшь прямо в window
++
++3. мобильный дизайн(всё оч маленькое)
++
++4. Не включать анимацию если не выбрана песня
+\ No newline at end of file
+Index: index.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- index.js	(revision 6c4db5ad35114720d9746f4063de5edd688e5de2)
++++ index.js	(date 1560631963000)
+@@ -2,29 +2,33 @@
+ var button = document.getElementsByClassName('button')[0];
+ var vinylRecord = document.getElementsByClassName('vinyl_record')[0];
+ var selector = document.getElementById('selector');
++var CLASS_NAME = "vinyl_record_animation";
++
+ var track = new Howl({
+     src: [getMusicGenre(selector.value)],
+     autoplay: false,
+     loop: false,
+-    onend: function(){
++    onend: function () {
+         vinylRecord.classList.remove("vinyl_record_animation");
+     }
+ });
+ var timer;
+ var initTime;
+ 
+-function classCheck(){
+-    for( var i=0; i < vinylRecord.classList.length; i++){
++function classCheck() {
++    /*for( var i=0; i < vinylRecord.classList.length; i++){
+         if( vinylRecord.classList[i] === "vinyl_record_animation"){
+             return true;
+         }
+     }
+-    return false;
++    return false;*/
++    return vinylRecord.classList.contains('vinyl_record_animation')
++
+ }
+ 
+-function rotation(){
++function rotation() {
+     initTime = new Date().getTime();
+-    if( !classCheck()){
++    /*if( !classCheck()){
+         vinylRecord.classList.add("vinyl_record_animation");
+         track.play();
+         timer = setInterval(isTimer, 1)
+@@ -33,21 +37,30 @@
+         vinylRecord.classList.remove("vinyl_record_animation");
+         track.pause();
+         clearInterval(timer);
++    }*/
++    if (classCheck()) {
++        vinylRecord.classList.remove("vinyl_record_animation");
++        track.pause();
++        clearInterval(timer);
++    } else {
++        vinylRecord.classList.add("vinyl_record_animation");
++        track.play();
++        timer = setInterval(isTimer, 1)
+     }
+ }
+ 
+ selector.addEventListener("change", selectTrack);
+ button.addEventListener("click", rotation);
+ 
+-function selectTrack(){
++function selectTrack() {
+     track.stop();
+     vinylRecord.classList.remove("vinyl_record_animation");
+     track = new Howl({
+         src: [getMusicGenre(selector.value)],
+         autoplay: false,
+         loop: false,
+-        onend: function(){
+-        vinylRecord.classList.remove("vinyl_record_animation");
++        onend: function () {
++            vinylRecord.classList.remove("vinyl_record_animation");
+         }
+     });
+ }
+@@ -57,16 +70,18 @@
+         "chill": "chill.mp3",
+         "party": "party.mp3",
+         "relax": "relax.mp3"
+-    }
++    };
+     return songs[type];
+ }
+ 
++var timerElemenent = document.getElementsByClassName("timer")[0]
+ function isTimer() {
+     var time = new Date().getTime() - initTime;
+-    var minutes = Math.floor((time  % (1000 * 60 * 60)) / (1000 * 60));
+-    var seconds = Math.floor((time  % (1000 * 60)) / 1000);
+-    var milliseconds = Math.floor((time  % (1000)));
+-    
+-    document.getElementsByClassName("timer")[0].innerHTML = minutes + " : " + seconds + " : " + milliseconds;
++    var minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
++    var seconds = Math.floor((time % (1000 * 60)) / 1000);
++    var milliseconds = Math.floor((time % (1000)));
++
++    timerElemenent.innerHTML = minutes + " : " + seconds + " : " + milliseconds;
+ }
+-//TODO fix timer xeroing on pause
+\ No newline at end of file
++
++//TODO fix timer zeroing on pause
+\ No newline at end of file
+diff --git Vynilizer.zip Vynilizer.zip
+deleted file mode 100644
+index dae3405eecc449d2288bd671b3477f61fef2dc20..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
