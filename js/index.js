@@ -1,31 +1,25 @@
 (function () {
-    "use strict"
+    "use strict";
+
     var button = document.getElementsByClassName('button')[0];
     var vinylRecord = document.getElementsByClassName('vinyl_record')[0];
     var selector = document.getElementById('selector');
-    var track = new Howl({
-        src: [getMusicGenre(selector.value)],
-        autoplay: false,
-        loop: false,
-        onend: function () {
-            vinylRecord.classList.remove("vinyl_record_animation");
-        }
-    });
-    var timer;
-    var initTime;
     var timerElemenent = document.getElementsByClassName('timer')[0];
     var selectorWarningText = document.getElementById('selector_warning_text');
+    var timer;
+    var initTime;
+    var playTime;
+    var track;
 
     function toggleTrack() {
-        initTime = new Date().getTime();
         if (track.playing()) {
             vinylRecord.classList.remove("vinyl_record_animation");
             track.pause();
-            clearInterval(timer);
+
         } else {
             vinylRecord.classList.add("vinyl_record_animation");
             track.play();
-            timer = setInterval(isTimer, 1)
+
         }
     }
 
@@ -33,15 +27,33 @@
     button.addEventListener("click", isGenreSelected);
 
     function selectTrack() {
-        track.stop();
+        if (track) {
+            track.stop();
+            initTime = 0;
+            clearInterval(timer);
+            timerElemenent.innerHTML = "00:00:000";
+        }
         selectorWarningText.textContent = "";
         vinylRecord.classList.remove("vinyl_record_animation");
         track = new Howl({
             src: [getMusicGenre(selector.value)],
             autoplay: false,
             loop: false,
+            onplay: function () {
+                if (!initTime) {
+                    initTime = new Date().getTime();
+                } else {
+                    initTime = new Date().getTime() - playTime;
+                };
+                timer = setInterval(updateTimer, 1);
+            },
+            onpause: function () {
+                clearInterval(timer);
+            },
             onend: function () {
                 vinylRecord.classList.remove("vinyl_record_animation");
+                initTime = 0;
+                clearInterval(timer);
             }
         });
     }
@@ -55,20 +67,21 @@
         return songs[type];
     }
 
-    function isTimer() {
-        var time = new Date().getTime() - initTime;
-        var minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((time % (1000 * 60)) / 1000);
-        var milliseconds = Math.floor((time % (1000)));
+    function updateTimer() {
+        playTime = new Date().getTime() - initTime;
+        var minutes = Math.floor((playTime % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((playTime % (1000 * 60)) / 1000);
+        var milliseconds = Math.floor((playTime % (1000)));
         timerElemenent.innerHTML = minutes + " : " + seconds + " : " + milliseconds;
     }
 
     function isGenreSelected() {
-        if(selector.value === ""){
+        if (selector.value) {
+            toggleTrack();
+        } else {
             selectorWarningText.textContent = "Please, choose genre!";
-        } else toggleTrack();
+        }
     }
-    /*TODO fix timer zeroing on pause
-    мобильный дизайн
-    скорретировать css изображения*/
+    /*TODO on document load
+    мобильный дизайн*/
 }());
