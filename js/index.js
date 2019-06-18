@@ -1,4 +1,4 @@
-(function () {
+var VinylRecordModule = (function () {
     "use strict";
 
     var button = document.getElementsByClassName('button')[0];
@@ -82,6 +82,7 @@
             selectorWarningText.textContent = "Please, choose genre!";
         }
     }
-    /*TODO on document load
-    мобильный дизайн*/
-}());
+    //TODO мобильный дизайн
+});
+
+document.addEventListener("DOMContentLoaded", VinylRecordModule);
