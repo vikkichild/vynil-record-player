@@ -3,56 +3,58 @@ body{
 }
 
 .main_container {
-  margin-left: 50px;
-  margin-top: 40px;
+  width: 80vw;
+  height: 61vw;
 }
 
 .base {
-  height: 453px;
-  width: 575px;
+  width: 80vw;
+  height: 61vw;
+  max-width: 649.5px;
+  max-height: 501px;
+  float: left;
+  position: relative;
   background-image: url("../image/base.png");
-  background-size: cover;
-  background-position: center;
-}
-
-.vinyl_record_container {
-  margin-left: 5px;
-  margin-top: -437px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin: 2vw;
 }
 
 .vinyl_record {
-  height: 400px;
-  width: 400px;
+  width: 70%;
+  height: 90%;
   background-image: url("../image/vinyl record.png");
-  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: contain;
   background-position: center;
-}
-
-.button_container {
-  margin-left: 430px;
-  margin-top: -60px;
+  padding-top: 5%;
+  padding-left: 2%;
 }
 
 .button {
-  height: 50px;
-  width: 100px;
+  width: 20%;
+  height: 10%;
+  position: absolute;
   background-image: url("../image/button.png");
+  background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  right: 5%;
+  bottom: 10%;
 }
 
 .vinyl_record_animation {
   animation: rotation 10s linear 0s infinite normal none;
 }
 
-  @keyframes rotation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
   }
+   to {
+    transform: rotate(360deg);
+  }
+}
 
 .music_select {
   display: block;
@@ -67,8 +69,6 @@ body{
 }
 
 .timer {
-  margin-top: -350px;
-  margin-left: 400px;
   border: 2px solid black;
   border-radius: 10px;
   text-align: center;
@@ -77,6 +77,8 @@ body{
   letter-spacing: 3px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 20px;
+  right: 5%;
+  top: 5%;
 }
 
 .selector_text {
